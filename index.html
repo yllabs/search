@@ -6,98 +6,108 @@
 <title>YL Labs Home</title>
 
 <style>
-  /* ====== Base Styles ====== */
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+
   :root {
-    --color-bg-light: #f8fafc;
-    --color-bg-dark: #111827;
-    --color-text-light: #1e293b;
+    --color-bg-light: #f0f4f8;
+    --color-bg-dark: #0a0a0a;
+    --color-text-light: #111827;
     --color-text-dark: #f1f5f9;
-    --color-accent: #ff0000; /* Can use your branding red */
+    --color-accent: #ff0000;
     --transition-speed: 0.3s;
   }
 
-  html {
-    scroll-behavior: smooth;
+  html, body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Inter', Arial, sans-serif;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
   }
 
   body {
-    font-family: 'Inter', Arial, sans-serif;
+    background: var(--color-bg-light);
+    color: var(--color-text-light);
+    transition: background var(--transition-speed), color var(--transition-speed);
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 100vh;
-    margin: 0;
     text-align: center;
-    background-color: var(--color-bg-light);
-    color: var(--color-text-light);
-    transition: background-color var(--transition-speed), color var(--transition-speed);
+    position: relative;
   }
 
   body.dark {
-    background-color: var(--color-bg-dark);
+    background: var(--color-bg-dark);
     color: var(--color-text-dark);
   }
 
-  /* ====== Logo ====== */
-  .logo {
-    width: 130px;
-    height: 130px;
+  /* ===== Neon Floating Shapes ===== */
+  .shape {
+    position: absolute;
     border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 20px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-    overflow: hidden;
-    background-color: #cbd5e1;
-    transition: transform var(--transition-speed);
+    opacity: 0.2;
+    filter: blur(60px);
+    animation: float 12s ease-in-out infinite alternate;
   }
-  .logo:hover {
-    transform: scale(1.05);
+
+  .shape.red { background-color: #ff0000; width: 200px; height: 200px; top: 10%; left: 15%; }
+  .shape.purple { background-color: #8000ff; width: 150px; height: 150px; top: 60%; left: 70%; }
+  .shape.blue { background-color: #00ffff; width: 180px; height: 180px; top: 30%; left: 80%; }
+
+  @keyframes float {
+    0% { transform: translateY(0px) translateX(0px);}
+    50% { transform: translateY(-30px) translateX(20px);}
+    100% { transform: translateY(0px) translateX(0px);}
+  }
+
+  /* ===== Logo ===== */
+  .logo {
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    margin-bottom: 20px;
+    box-shadow: 0 0 50px rgba(255,0,0,0.5);
+    overflow: hidden;
+    transition: transform var(--transition-speed);
   }
   .logo img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: contain;
   }
+  .logo:hover { transform: scale(1.05); }
 
-  /* ====== Branding ====== */
+  /* ===== Branding ===== */
   .brand {
-    font-size: 2rem;
-    font-weight: 600;
-    letter-spacing: 1px;
-    margin-bottom: 25px;
-    transition: color var(--transition-speed);
-  }
-
-  body.dark .brand {
+    font-size: 2.5rem;
+    font-weight: 700;
     color: var(--color-accent);
+    margin-bottom: 20px;
+    text-shadow: 0 0 15px rgba(255,0,0,0.5);
   }
 
-  /* ====== Clock ====== */
+  /* ===== Clock ===== */
   #clock {
-    font-size: 1.4rem;
-    margin-bottom: 30px;
+    font-size: 1.5rem;
     font-weight: 500;
-    letter-spacing: 1px;
-    transition: color var(--transition-speed);
+    margin-bottom: 30px;
   }
 
-  /* ====== Search ====== */
+  /* ===== Search Bar ===== */
   form {
-    width: 100%;
+    width: 90%;
     max-width: 500px;
     display: flex;
     border-radius: 9999px;
     overflow: hidden;
-    box-shadow: 0 2px 15px rgba(0,0,0,0.1);
-    background: white;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+    background: rgba(255,255,255,0.1);
+    backdrop-filter: blur(10px);
     transition: box-shadow 0.3s ease;
   }
-  form:hover {
-    box-shadow: 0 4px 25px rgba(0,0,0,0.15);
-  }
+  form:hover { box-shadow: 0 15px 40px rgba(255,0,0,0.4); }
   input[type="text"] {
     flex: 1;
     padding: 15px 20px;
@@ -105,21 +115,20 @@
     outline: none;
     font-size: 1rem;
     background: transparent;
+    color: inherit;
+    caret-color: #ff0000;
   }
   button {
-    background-color: var(--color-accent);
+    background-color: #ff0000;
     color: white;
     border: none;
     padding: 0 25px;
-    font-size: 1rem;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: background 0.3s ease;
   }
-  button:hover {
-    background-color: #cc0000;
-  }
+  button:hover { background-color: #cc0000; }
 
-  /* ====== Quick Links ====== */
+  /* ===== Quick Links ===== */
   .links {
     display: flex;
     gap: 20px;
@@ -129,83 +138,75 @@
   }
   .links a {
     text-decoration: none;
-    color: var(--color-accent);
+    color: #ff0000;
     font-weight: 500;
     transition: color 0.3s ease;
   }
-  .links a:hover {
-    color: #cc0000;
-  }
+  .links a:hover { color: #cc0000; }
 
-  /* ====== Settings Panel ====== */
+  /* ===== Settings Panel ===== */
   .settings-btn {
     position: fixed;
     top: 20px;
     right: 20px;
-    background-color: var(--color-accent);
+    background-color: #ff0000;
     color: white;
     border: none;
     padding: 10px 15px;
     border-radius: 9999px;
     cursor: pointer;
     font-size: 0.9rem;
-    transition: background-color 0.3s ease, transform 0.3s ease;
     z-index: 1000;
+    transition: background 0.3s ease;
   }
-  .settings-btn:hover {
-    background-color: #cc0000;
-    transform: scale(1.05);
-  }
+  .settings-btn:hover { background-color: #cc0000; }
+
   .settings-panel {
     position: fixed;
     top: 60px;
     right: 20px;
-    background-color: white;
+    background: rgba(255,255,255,0.95);
     color: #111827;
     padding: 15px 20px;
     border-radius: 12px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
     display: none;
     flex-direction: column;
     gap: 10px;
     font-size: 0.95rem;
     z-index: 999;
-    transition: all 0.3s ease;
-  }
-  .settings-panel label {
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 10px;
   }
   body.dark .settings-panel {
-    background-color: #1f2937;
+    background: rgba(20,20,20,0.95);
     color: #f1f5f9;
   }
+  .settings-panel label { cursor: pointer; display: flex; align-items: center; gap: 10px; }
+
 </style>
 </head>
 <body>
 
+<!-- Floating Neon Shapes -->
+<div class="shape red"></div>
+<div class="shape purple"></div>
+<div class="shape blue"></div>
+
 <!-- Settings Button -->
 <button class="settings-btn" id="settingsBtn">⚙️ Settings</button>
-
-<!-- Settings Panel -->
 <div class="settings-panel" id="settingsPanel">
-  <label>
-    <input type="radio" name="theme" value="light"> Light Mode
-  </label>
-  <label>
-    <input type="radio" name="theme" value="dark"> Dark Mode
-  </label>
+  <label><input type="radio" name="theme" value="light"> Light Mode</label>
+  <label><input type="radio" name="theme" value="dark"> Dark Mode</label>
 </div>
 
 <!-- Logo -->
-<div class="logo" id="logo"></div>
+<div class="logo">
+  <img src="https://cdn.discordapp.com/attachments/1437017654841049274/1438298021082173562/yllabs_logo-removebg-preview.png" alt="YL Labs Logo">
+</div>
 
 <!-- Branding -->
 <div class="brand">YL Labs</div>
 
-<!-- Live Clock -->
+<!-- Clock -->
 <div id="clock"></div>
 
 <!-- Google Search -->
@@ -223,15 +224,7 @@
 </div>
 
 <script>
-  // ====== Logo ======
-  const LOGO_URL = "https://cdn.example.com/your-logo.png"; // Replace with your logo CDN
-  const logoContainer = document.getElementById("logo");
-  const img = document.createElement("img");
-  img.src = LOGO_URL;
-  img.alt = "YL Labs Logo";
-  logoContainer.appendChild(img);
-
-  // ====== Clock ======
+  // ===== Clock =====
   function updateClock() {
     const now = new Date();
     const time = now.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
@@ -240,24 +233,20 @@
   setInterval(updateClock, 1000);
   updateClock();
 
-  // ====== Theme Settings ======
+  // ===== Settings Panel =====
   const settingsBtn = document.getElementById("settingsBtn");
   const settingsPanel = document.getElementById("settingsPanel");
   const themeRadios = document.querySelectorAll('input[name="theme"]');
 
-  // Show/hide panel
   settingsBtn.addEventListener("click", () => {
     settingsPanel.style.display = settingsPanel.style.display === "flex" ? "none" : "flex";
   });
 
   // Load saved theme
-  const savedTheme = localStorage.getItem("theme") || "light";
+  const savedTheme = localStorage.getItem("theme") || "dark";
   if(savedTheme === "dark") document.body.classList.add("dark");
-  themeRadios.forEach(r => {
-    if(r.value === savedTheme) r.checked = true;
-  });
+  themeRadios.forEach(r => { if(r.value === savedTheme) r.checked = true; });
 
-  // Change theme
   themeRadios.forEach(radio => {
     radio.addEventListener("change", () => {
       if(radio.value === "dark") {
@@ -270,5 +259,6 @@
     });
   });
 </script>
+
 </body>
 </html>
