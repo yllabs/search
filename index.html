@@ -1,264 +1,223 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>YL Labs Home</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>YL Labs Home</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* ====== Base Styles ====== */
+    :root {
+      --primary-color: #3aa3ff;
+      --bg-light: #f0f4ff;
+      --bg-dark: #0a1020;
+      --text-light: #1e293b;
+      --text-dark: #f8fafc;
+      --link-color: #3aa3ff;
+      --link-hover: #0a78d0;
+    }
+    body {
+      font-family: 'Inter', Arial, sans-serif;
+      background: var(--bg-dark);
+      color: var(--text-dark);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      text-align: center;
+      transition: background 0.3s, color 0.3s;
+    }
+    body.light {
+      background: var(--bg-light);
+      color: var(--text-light);
+    }
 
-<style>
-  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+    /* ====== Logo ====== */
+    .logo-container {
+      position: relative;
+      width: 140px;
+      height: 140px;
+      margin-bottom: 20px;
+    }
+    .logo {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      overflow: hidden;
+      box-shadow: 0 0 25px rgba(58,163,255,0.25);
+    }
+    .logo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
 
-  :root {
-    --color-bg-light: #f0f4f8;
-    --color-bg-dark: #0a0a0a;
-    --color-text-light: #111827;
-    --color-text-dark: #f1f5f9;
-    --color-accent: #ff0000;
-    --transition-speed: 0.3s;
-  }
+    /* Orbiting particles */
+    .particle {
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--primary-color);
+      top: 50%;
+      left: 50%;
+      transform-origin: -50px 0; /* Orbit radius */
+      animation: rotate 4s linear infinite;
+      opacity: 0.8;
+      box-shadow: 0 0 8px var(--primary-color);
+    }
+    .particle:nth-child(2) { transform-origin: -65px 0; animation-duration: 5s; }
+    .particle:nth-child(3) { transform-origin: -80px 0; animation-duration: 6s; }
+    .particle:nth-child(4) { transform-origin: -95px 0; animation-duration: 7s; }
 
-  html, body {
-    margin: 0;
-    padding: 0;
-    font-family: 'Inter', Arial, sans-serif;
-    height: 100%;
-    width: 100%;
-    overflow: hidden;
-  }
+    @keyframes rotate {
+      from { transform: rotate(0deg) translateX(50px) rotate(0deg); }
+      to { transform: rotate(360deg) translateX(50px) rotate(-360deg); }
+    }
 
-  body {
-    background: var(--color-bg-light);
-    color: var(--color-text-light);
-    transition: background var(--transition-speed), color var(--transition-speed);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    position: relative;
-  }
+    .brand {
+      font-size: 1.8rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      margin-bottom: 25px;
+      color: var(--primary-color);
+    }
 
-  body.dark {
-    background: var(--color-bg-dark);
-    color: var(--color-text-dark);
-  }
+    /* Clock */
+    #clock {
+      font-size: 1.3rem;
+      margin-bottom: 30px;
+      color: var(--primary-color);
+    }
 
-  /* ===== Neon Floating Shapes ===== */
-  .shape {
-    position: absolute;
-    border-radius: 50%;
-    opacity: 0.2;
-    filter: blur(60px);
-    animation: float 12s ease-in-out infinite alternate;
-  }
+    /* Search */
+    form {
+      width: 100%;
+      max-width: 500px;
+      display: flex;
+      border-radius: 9999px;
+      overflow: hidden;
+      box-shadow: 0 2px 15px rgba(0,0,0,0.2);
+      background: #1a1a1a;
+      transition: box-shadow 0.2s ease;
+    }
+    body.light form { background: white; }
+    form:hover { box-shadow: 0 4px 25px rgba(0,0,0,0.3); }
+    input[type="text"] {
+      flex: 1;
+      padding: 15px 20px;
+      border: none;
+      outline: none;
+      font-size: 1rem;
+      background: transparent;
+      color: inherit;
+    }
+    button {
+      background-color: var(--primary-color);
+      color: white;
+      border: none;
+      padding: 0 25px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+    }
+    button:hover { background-color: #0a78d0; }
 
-  .shape.red { background-color: #ff0000; width: 200px; height: 200px; top: 10%; left: 15%; }
-  .shape.purple { background-color: #8000ff; width: 150px; height: 150px; top: 60%; left: 70%; }
-  .shape.blue { background-color: #00ffff; width: 180px; height: 180px; top: 30%; left: 80%; }
+    /* Quick Links */
+    .links {
+      display: flex;
+      gap: 20px;
+      margin-top: 40px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .links a {
+      text-decoration: none;
+      color: var(--primary-color);
+      font-weight: 500;
+      transition: color 0.2s ease;
+    }
+    .links a:hover { color: #0a78d0; }
 
-  @keyframes float {
-    0% { transform: translateY(0px) translateX(0px);}
-    50% { transform: translateY(-30px) translateX(20px);}
-    100% { transform: translateY(0px) translateX(0px);}
-  }
-
-  /* ===== Logo ===== */
-  .logo {
-    width: 160px;
-    height: 160px;
-    border-radius: 50%;
-    margin-bottom: 20px;
-    box-shadow: 0 0 50px rgba(255,0,0,0.5);
-    overflow: hidden;
-    transition: transform var(--transition-speed);
-  }
-  .logo img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-  }
-  .logo:hover { transform: scale(1.05); }
-
-  /* ===== Branding ===== */
-  .brand {
-    font-size: 2.5rem;
-    font-weight: 700;
-    color: var(--color-accent);
-    margin-bottom: 20px;
-    text-shadow: 0 0 15px rgba(255,0,0,0.5);
-  }
-
-  /* ===== Clock ===== */
-  #clock {
-    font-size: 1.5rem;
-    font-weight: 500;
-    margin-bottom: 30px;
-  }
-
-  /* ===== Search Bar ===== */
-  form {
-    width: 90%;
-    max-width: 500px;
-    display: flex;
-    border-radius: 9999px;
-    overflow: hidden;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
-    background: rgba(255,255,255,0.1);
-    backdrop-filter: blur(10px);
-    transition: box-shadow 0.3s ease;
-  }
-  form:hover { box-shadow: 0 15px 40px rgba(255,0,0,0.4); }
-  input[type="text"] {
-    flex: 1;
-    padding: 15px 20px;
-    border: none;
-    outline: none;
-    font-size: 1rem;
-    background: transparent;
-    color: inherit;
-    caret-color: #ff0000;
-  }
-  button {
-    background-color: #ff0000;
-    color: white;
-    border: none;
-    padding: 0 25px;
-    cursor: pointer;
-    transition: background 0.3s ease;
-  }
-  button:hover { background-color: #cc0000; }
-
-  /* ===== Quick Links ===== */
-  .links {
-    display: flex;
-    gap: 20px;
-    margin-top: 40px;
-    flex-wrap: wrap;
-    justify-content: center;
-  }
-  .links a {
-    text-decoration: none;
-    color: #ff0000;
-    font-weight: 500;
-    transition: color 0.3s ease;
-  }
-  .links a:hover { color: #cc0000; }
-
-  /* ===== Settings Panel ===== */
-  .settings-btn {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    background-color: #ff0000;
-    color: white;
-    border: none;
-    padding: 10px 15px;
-    border-radius: 9999px;
-    cursor: pointer;
-    font-size: 0.9rem;
-    z-index: 1000;
-    transition: background 0.3s ease;
-  }
-  .settings-btn:hover { background-color: #cc0000; }
-
-  .settings-panel {
-    position: fixed;
-    top: 60px;
-    right: 20px;
-    background: rgba(255,255,255,0.95);
-    color: #111827;
-    padding: 15px 20px;
-    border-radius: 12px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-    display: none;
-    flex-direction: column;
-    gap: 10px;
-    font-size: 0.95rem;
-    z-index: 999;
-  }
-  body.dark .settings-panel {
-    background: rgba(20,20,20,0.95);
-    color: #f1f5f9;
-  }
-  .settings-panel label { cursor: pointer; display: flex; align-items: center; gap: 10px; }
-
-</style>
+    /* Settings Panel */
+    .settings {
+      position: fixed;
+      top: 15px;
+      right: 15px;
+      background: rgba(0,0,0,0.3);
+      backdrop-filter: blur(10px);
+      padding: 12px 15px;
+      border-radius: 12px;
+      color: white;
+      cursor: pointer;
+      font-weight: 600;
+      transition: background 0.3s;
+    }
+    .settings:hover { background: rgba(0,0,0,0.5); }
+    body.light .settings { color: var(--text-light); background: rgba(255,255,255,0.3); }
+  </style>
 </head>
 <body>
+  <!-- Settings -->
+  <div class="settings" id="settingsToggle">🌓 Toggle Light/Dark</div>
 
-<!-- Floating Neon Shapes -->
-<div class="shape red"></div>
-<div class="shape purple"></div>
-<div class="shape blue"></div>
+  <!-- Logo -->
+  <div class="logo-container">
+    <div class="logo">
+      <img src="https://cdn.discordapp.com/attachments/1437017654841049274/1438298021082173562/yllabs_logo-removebg-preview.png" alt="YL Labs Logo">
+    </div>
+    <!-- Orbiting particles -->
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+  </div>
 
-<!-- Settings Button -->
-<button class="settings-btn" id="settingsBtn">⚙️ Settings</button>
-<div class="settings-panel" id="settingsPanel">
-  <label><input type="radio" name="theme" value="light"> Light Mode</label>
-  <label><input type="radio" name="theme" value="dark"> Dark Mode</label>
-</div>
+  <!-- Branding -->
+  <div class="brand">YL Labs</div>
 
-<!-- Logo -->
-<div class="logo">
-  <img src="https://cdn.discordapp.com/attachments/1437017654841049274/1438298021082173562/yllabs_logo-removebg-preview.png" alt="YL Labs Logo">
-</div>
+  <!-- Clock -->
+  <div id="clock"></div>
 
-<!-- Branding -->
-<div class="brand">YL Labs</div>
+  <!-- Google Search -->
+  <form action="https://www.google.com/search" method="GET">
+    <input type="text" name="q" placeholder="Search Google..." autofocus />
+    <button type="submit">🔍</button>
+  </form>
 
-<!-- Clock -->
-<div id="clock"></div>
+  <!-- Quick Links -->
+  <div class="links">
+    <a href="https://github.com" target="_blank">GitHub</a>
+    <a href="https://mail.google.com" target="_blank">Gmail</a>
+    <a href="https://drive.google.com" target="_blank">Drive</a>
+    <a href="https://news.google.com" target="_blank">News</a>
+  </div>
 
-<!-- Google Search -->
-<form action="https://www.google.com/search" method="GET">
-  <input type="text" name="q" placeholder="Search Google..." autofocus />
-  <button type="submit">🔍</button>
-</form>
+  <script>
+    // === Clock ===
+    function updateClock() {
+      const now = new Date();
+      const time = now.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+      document.getElementById("clock").textContent = time;
+    }
+    setInterval(updateClock, 1000);
+    updateClock();
 
-<!-- Quick Links -->
-<div class="links">
-  <a href="https://github.com" target="_blank">GitHub</a>
-  <a href="https://mail.google.com" target="_blank">Gmail</a>
-  <a href="https://drive.google.com" target="_blank">Drive</a>
-  <a href="https://news.google.com" target="_blank">News</a>
-</div>
+    // === Settings: Light/Dark Mode ===
+    const body = document.body;
+    const settingsToggle = document.getElementById("settingsToggle");
 
-<script>
-  // ===== Clock =====
-  function updateClock() {
-    const now = new Date();
-    const time = now.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
-    document.getElementById("clock").textContent = time;
-  }
-  setInterval(updateClock, 1000);
-  updateClock();
+    // Load saved preference
+    if(localStorage.getItem('ylLabsTheme') === 'light') body.classList.add('light');
 
-  // ===== Settings Panel =====
-  const settingsBtn = document.getElementById("settingsBtn");
-  const settingsPanel = document.getElementById("settingsPanel");
-  const themeRadios = document.querySelectorAll('input[name="theme"]');
-
-  settingsBtn.addEventListener("click", () => {
-    settingsPanel.style.display = settingsPanel.style.display === "flex" ? "none" : "flex";
-  });
-
-  // Load saved theme
-  const savedTheme = localStorage.getItem("theme") || "dark";
-  if(savedTheme === "dark") document.body.classList.add("dark");
-  themeRadios.forEach(r => { if(r.value === savedTheme) r.checked = true; });
-
-  themeRadios.forEach(radio => {
-    radio.addEventListener("change", () => {
-      if(radio.value === "dark") {
-        document.body.classList.add("dark");
-        localStorage.setItem("theme", "dark");
-      } else {
-        document.body.classList.remove("dark");
-        localStorage.setItem("theme", "light");
-      }
+    settingsToggle.addEventListener('click', () => {
+      body.classList.toggle('light');
+      localStorage.setItem('ylLabsTheme', body.classList.contains('light') ? 'light' : 'dark');
     });
-  });
-</script>
-
+  </script>
 </body>
 </html>
